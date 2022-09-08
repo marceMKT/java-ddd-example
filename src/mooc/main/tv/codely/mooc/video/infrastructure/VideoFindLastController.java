@@ -2,17 +2,17 @@ package tv.codely.mooc.video.infrastructure;
 
 import tv.codely.mooc.notification.application.create.SendPushToSubscribersOnVideoPublished;
 import tv.codely.mooc.video.application.publish.VideoPublisher;
-import tv.codely.mooc.video.domain.VideoDescription;
-import tv.codely.mooc.video.domain.VideoTitle;
+import tv.codely.mooc.video.domain.Video;
 import tv.codely.mooc.video.domain.port.secondary.VideoRepository;
 import tv.codely.mooc.video.infrastructure.repository.VideoRepositoryInMemory;
 import tv.codely.shared.application.DomainEventSubscriber;
 import tv.codely.shared.domain.EventBus;
 import tv.codely.shared.infrastructure.bus.ReactorEventBus;
 
+import java.util.Optional;
 import java.util.Set;
 
-public class VideoPublisherCliController {
+public class VideoFindLastController {
     public static void main(String[] args) {
         final Set<DomainEventSubscriber> subscribers = Set.of(
             new SendPushToSubscribersOnVideoPublished()
@@ -25,5 +25,9 @@ public class VideoPublisherCliController {
         final String videoDescription = "This should be the video description \uD83D\uDE42";
 
         videoPublisher.publish(videoTitle, videoDescription);
+
+        Optional<Video> video = videoRepository.findLastVideo();
+        System.out.println(video.get().getTitle() + " - " + video.get().getDescription());
+
     }
 }

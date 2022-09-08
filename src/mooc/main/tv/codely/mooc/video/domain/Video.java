@@ -20,4 +20,12 @@ public final class Video extends AggregateRoot {
 
         return video;
     }
+
+    public String getTitle(){
+        return title.value();
+    }
+
+    public String getDescription(){
+        return description.value();
+    }
 }

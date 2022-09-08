@@ -6,3 +6,10 @@ out/
 # Ignore Gradle GUI config
 gradle-app.setting
 
+.idea
+.DS_Store
+bin
+applications/.project
+applications/.settings
+.settings
+.project

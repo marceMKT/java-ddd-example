@@ -4,6 +4,7 @@ import tv.codely.mooc.notification.application.create.SendPushToSubscribersOnVid
 import tv.codely.mooc.video.application.publish.VideoPublisher;
 import tv.codely.mooc.video.domain.VideoDescription;
 import tv.codely.mooc.video.domain.VideoTitle;
+import tv.codely.mooc.video.domain.port.secondary.NotificationSender;
 import tv.codely.mooc.video.domain.port.secondary.VideoRepository;
 import tv.codely.mooc.video.infrastructure.repository.VideoRepositoryInMemory;
 import tv.codely.shared.application.DomainEventSubscriber;
@@ -19,7 +20,8 @@ public class VideoPublisherCliController {
         );
         final EventBus eventBus = new ReactorEventBus(subscribers);
         final VideoRepository videoRepository = new VideoRepositoryInMemory();
-        final VideoPublisher videoPublisher = new VideoPublisher(eventBus, videoRepository);
+        final NotificationSender notificationSender = new EmailNotificationSender("from@mail.com", "to@mail.com", "xxxSUBJECTxxx");
+        final VideoPublisher videoPublisher = new VideoPublisher(eventBus, videoRepository, notificationSender);
 
         final String videoTitle = "\uD83C\uDF89 New YouTube.com/CodelyTV video title";
         final String videoDescription = "This should be the video description \uD83D\uDE42";
